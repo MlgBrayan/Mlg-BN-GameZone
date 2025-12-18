@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeux Android & iOS | MLG BN GameZone</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: black; 
+  color: #9900ff;
+  margin: 0;
+}
+
+/* TITRES */
+h1, h2, h3 {
+  text-align: center;
+  color: white;
+  margin: 10px 0;
+}
+
+h1 {
+  font-size: 35px;
+  background: linear-gradient(90deg,#00f0ff,#9900ff);       
+  text-shadow: 0 0 10px #00f;
+  padding: 20px;
+}
+
+/* BOUTONS CATEGORIES */
+.bouton-cadre{
+  display: flex;
+  font-weight: bold;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+.bouton {
+  border-radius: 10px;
+  background: #9900ff;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  padding: 10px 25px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.bouton:hover {
+  transform: scale(1.05);
+  color: #00f;
+  box-shadow: 0 0 20px #00f;
+}
+
+/* CADRE JEUX POPULAIRE / NOUVEAUX */
+.game-cadre {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 15px;
+}
+
+.game {
+  position: relative;
+  border-radius: 15px;
+  background: #1a0a3a;
+  transition: transform 0.3s, box-shadow 0.3s;
+  min-width: 220px;
+  height: 150px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.game:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #0099ff;
+}
+
+.game img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* INFO JEU grands cadres */
+.game-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(10,10,26,0.9);
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.game-info h4 {
+  margin: 2px 0;
+  font-size: 14px;
+  color: #00f0ff;
+}
+
+.game-info p {
+  margin: 2px 0 6px;
+  font-size: 11px;
+  color: #ddd;
+}
+
+/* BOUTON TELECHARGER */
+.btn-telecharger {
+  display: block;
+  text-align: center;
+  background: linear-gradient(90deg,#00f0ff,#9900ff);
+  color: white;
+  padding: 6px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.btn-telecharger:active {
+  transform: scale(0.95);
+}
+
+/* MINI-CADRES JEUX PAR CATEGORIE avec overlay */
+.category-game {
+  position: relative;
+  border-radius: 10px;
+  background: #1a0a3a;
+  width: 120px;
+  height: 150px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: center;
+  color: #00f0ff;
+  font-size: 11px;
+}
+
+.category-game img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay info sur image */
+.category-game .game-info-mini {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(10,10,26,0.8);
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.category-game .game-info-mini h4 {
+  margin: 2px 0;
+  font-size: 12px;
+  color: #00f0ff;
+}
+
+.category-game .game-info-mini p {
+  margin: 2px 0 4px;
+  font-size: 9px;
+  color: #ddd;
+}
+
+.category-game .game-info-mini a.btn-telecharger {
+  font-size: 10px;
+  padding: 4px 5px;
+  display: block;
+  text-align: center;
+  background: linear-gradient(90deg,#00f0ff,#9900ff);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-top: 2px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎮 Jeux Android & iOS</h1>
+
+<h2>🔥 Jeux Populaires</h2>
+<div class="game-cadre" id="popularGames">
+  <div class="game">
+    <img src="_fb954ae5-5e4a-409e-ae2e-02ba410a517b.jpg" alt="FC Mobile">
+    <div class="game-info">
+      <h4>FC Mobile</h4>
+      <p>Football réaliste avec équipes officielles.</p>
+      <a class="btn-telecharger" href="https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile" target="_blank">📥 Télécharger</a>
+    </div>
+  </div>
+  <div class="game">
+    <img src="https://play-lh.googleusercontent.com/6G5cWJxZ8JZ9xg5s9d5Lw=w526-h296-rw" alt="Minecraft">
+    <div class="game-info">
+      <h4>Minecraft</h4>
+      <p>Jeu sandbox créatif et survie multijoueur.</p>
+      <a class="btn-telecharger" href="https://play.google.com/store/apps/details?id=com.mojang.minecraftpe" target="_blank">📥 Télécharger</a>
+    </div>
+  </div>
+</div>
+
+<h3>Nos Catégories</h3>
+<div class="bouton-cadre">
+  <div class="bouton" onclick="filterCategory('Sport')">⚽ Sport</div>
+  <div class="bouton" onclick="filterCategory('Aventure')">🏹 Aventure</div>
+  <div class="bouton" onclick="filterCategory('Strategie')">🧠 Stratégie</div>
+  <div class="bouton" onclick="filterCategory('Reflexion')">🕹️ Réflexion</div>
+  <div class="bouton" onclick="filterCategory('Course')">🏎️ Course</div>
+  <div class="bouton" onclick="filterCategory('Simulation')">🛠 Simulation</div>
+  <div class="bouton" onclick="filterCategory('Gourmand')">🍔 Gourmand</div>
+  <div class="bouton" onclick="filterCategory('Multiplayer')">🌐 Multijoueur</div>
+  <div class="bouton" onclick="filterCategory('Casual')">🎲 Casual</div>
+</div>
+
+<h2>📦 Jeux par Catégorie</h2>
+<div class="game-cadre" id="categoryGames"></div>
+
+<h2>🆕 Nouveaux Jeux</h2>
+<div class="game-cadre" id="newGames">
+  <div class="game">
+    <img src="https://play-lh.googleusercontent.com/2Q7xgU9a1wLzJb9mM8qv=w526-h296-rw" alt="Asphalt 8">
+    <div class="game-info">
+      <h4>Asphalt 8</h4>
+      <p>Course arcade intense avec voitures de luxe.</p>
+      <a class="btn-telecharger" href="https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftA8HM" target="_blank">📥 Télécharger</a>
+    </div>
+  </div>
+</div>
+
+<h2>🎯 Jeux de la catégorie sélectionnée</h2>
+<div class="game-cadre" id="filteredCategory"></div>
+
+<script>
+// Liste des jeux (nom, image, catégorie, description, lien)
+const games = [
+  {nom: "FC Mobile", img:"_fb954ae5-5e4a-409e-ae2e-02ba410a517b.jpg", categorie:"Sport", description:"Football réaliste avec équipes officielles.", lien:"https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile"},
+  {nom: "Minecraft", img:"https://play-lh.googleusercontent.com/6G5cWJxZ8JZ9xg5s9d5Lw=w526-h296-rw", categorie:"Aventure", description:"Jeu sandbox créatif et survie multijoueur.", lien:"https://play.google.com/store/apps/details?id=com.mojang.minecraftpe"},
+  {nom: "Asphalt 8", img:"https://play-lh.googleusercontent.com/2Q7xgU9a1wLzJb9mM8qv=w526-h296-rw", categorie:"Course", description:"Course arcade intense avec voitures de luxe.", lien:"https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftA8HM"},
+  {nom: "Subway Surfers", img:"https://play-lh.googleusercontent.com/Jk8Y9cWc1lZp2n=w526-h296-rw", categorie:"Casual", description:"Course infinie fun et rapide.", lien:"https://apps.apple.com/app/id479516143"},
+  {nom: "Cooking Fever", img:"https://play-lh.googleusercontent.com/abcd=w526-h296-rw", categorie:"Gourmand", description:"Gère ton restaurant et cuisine rapidement.", lien:"#"},
+  {nom: "Call of Duty Mobile", img:"https://play-lh.googleusercontent.com/efgh=w526-h296-rw", categorie:"Multiplayer", description:"FPS multijoueur intense sur mobile.", lien:"#"}
+];
+
+// Fonction pour créer un mini-cadre
+function createMiniGameCard(game) {
+  const div = document.createElement("div");
+  div.className = "category-game";
+  div.innerHTML = `
+    <img src="${game.img}" alt="${game.nom}">
+    <div class="game-info-mini">
+      <h4>${game.nom}</h4>
+      <p>${game.description}</p>
+      <a class="btn-telecharger" href="${game.lien}" target="_blank">📥 Télécharger</a>
+    </div>
+  `;
+  return div;
+}
+
+// Générer mini-cadres dans Jeux par Catégorie
+const categoryGamesContainer = document.getElementById("categoryGames");
+games.forEach(game => categoryGamesContainer.appendChild(createMiniGameCard(game)));
+
+// Fonction pour filtrer par catégorie
+function filterCategory(categorie) {
+  const container = document.getElementById("filteredCategory");
+  container.innerHTML = "";
+  games.filter(game => game.categorie === categorie)
+       .forEach(game => container.appendChild(createMiniGameCard(game)));
+  // Scroll vers le bas pour voir les jeux filtrés
+  container.scrollIntoView({behavior: "smooth"});
+}
+</script>
+
+</body>
+</html>
