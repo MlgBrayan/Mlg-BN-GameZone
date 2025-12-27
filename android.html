@@ -22,7 +22,7 @@ h1, h2, h3 {
 
 h1 {
   font-size: 35px;
-  background: linear-gradient(90deg,#00f0ff,#9900ff);       
+  background: linear-gradient(90deg,#0055ff,#9900ff);       
   text-shadow: 0 0 10px #00f;
   padding: 20px;
 }
@@ -55,10 +55,13 @@ h1 {
 
 /* CADRE JEUX POPULAIRE / NOUVEAUX */
 .game-cadre {
-  display: flex;
-  overflow-x: auto;
+  display: grid;
+  grid-auto-flow: column;       /* scroll horizontal */
+  grid-template-rows: repeat(2, 1fr); /* ✅ 2 lignes */
   gap: 15px;
   padding: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .game {
@@ -109,7 +112,7 @@ h1 {
 .btn-telecharger {
   display: block;
   text-align: center;
-  background: linear-gradient(90deg,#00f0ff,#9900ff);
+  background: linear-gradient(90deg,#0055ff,#9900ff);
   color: white;
   padding: 6px;
   border-radius: 8px;
@@ -125,22 +128,38 @@ h1 {
 /* MINI-CADRES JEUX PAR CATEGORIE avec overlay */
 .category-game {
   position: relative;
-  border-radius: 10px;
-  background: #1a0a3a;
   width: 120px;
   height: 150px;
   flex: 0 0 auto;
   overflow: hidden;
   cursor: pointer;
   text-align: center;
-  color: #00f0ff;
   font-size: 11px;
+  font-size: 11px;        /* 🔽 taille réduite */
+  padding: 5px 6px;       /* 🔽 moins de hauteur */
+  margin-bottom: 4px;
+  border-radius: 6px;
+  background: #2b2b2b;
+  color: #fff;
+  text-decoration: none;
+  background-color: #1a0a3a;
+  display: flex;
+  align-items: stretch; /* 🔑 */
 }
 
 .category-game img {
-  width: 100%;
-  height: 100%;
+  width: 110%;
+  height: 110%;
   object-fit: cover;
+  display: block;
+}
+
+.category-game .game-img {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 /* Overlay info sur image */
@@ -149,18 +168,19 @@ h1 {
   bottom: 0;
   width: 100%;
   background: rgba(10,10,26,0.8);
-  padding: 5px;
+  padding: 2px;
   box-sizing: border-box;
+  margin: 0; 
 }
 
 .category-game .game-info-mini h4 {
-  margin: 2px 0;
-  font-size: 12px;
+  margin: 0;
+  font-size: 10px;
   color: #00f0ff;
 }
 
 .category-game .game-info-mini p {
-  margin: 2px 0 4px;
+  margin: 0;
   font-size: 9px;
   color: #ddd;
 }
@@ -170,12 +190,153 @@ h1 {
   padding: 4px 5px;
   display: block;
   text-align: center;
-  background: linear-gradient(90deg,#00f0ff,#9900ff);
+  background: linear-gradient(90deg,#0055ff,#9900ff);
   color: white;
   border-radius: 6px;
   text-decoration: none;
   margin-top: 2px;
 }
+/* cacher scrollbar - Chrome, Edge, Safari */
+.game-cadre::-webkit-scrollbar {
+  display: none;
+}
+
+/* cacher scrollbar - Firefox */
+.game-cadre {
+  scrollbar-width: none;
+}
+/* Scroll horizontal actif mais barre invisible */
+.game-cadre,
+.bouton-cadre {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE / Edge */
+}
+
+.game-cadre::-webkit-scrollbar,
+.bouton-cadre::-webkit-scrollbar {
+  display: none;              /* Chrome / Safari */
+}
+/* Conteneur des petits jeux : 4 lignes + scroll horizontal */
+#categoryGames {
+  display: grid;
+  grid-auto-flow: column;       /* scroll horizontal */
+  grid-template-rows: repeat(4, 1fr); /* ✅ 4 lignes */
+  gap: 12px;
+  padding: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+/* Grands cadres (populaires / nouveaux) */
+.game-cadre {
+  display: flex;          /* flex pour scroll horizontal */
+  gap: 15px;
+  padding: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+}
+
+.game-cadre::-webkit-scrollbar {
+  display: none;          /* cacher scrollbar */
+}
+.game {
+  position: relative;
+  border-radius: 15px;
+  background: #1a0a3a;
+  transition: transform 0.3s, box-shadow 0.3s;
+  min-width: 240px;      /* largeur fixe pour le scroll horizontal */
+  height: 150px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.download-box{
+  position: relative;
+  display: inline-block;
+  min-width: 220px;
+  font-size: 12px;
+}
+.download-options{
+  display:none;
+  position:absolute;
+  bottom:110%;
+  left:0;
+  background:#1a0a3a;
+  border-radius:10px;
+  box-shadow:0 0 20px #9900ff;
+  overflow:hidden;
+  min-width:180px;
+  z-index:20;
+  font-size: 12px;
+}
+
+.download-options a{
+  display:block;
+  padding:10px;
+  color:#00f0ff;
+  text-decoration:none;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.download-options a:hover{
+  background:#9900ff;
+  color:black;
+}.download-box{
+  position: relative;
+  display: inline-block;
+  min-width: 220px;
+  font-size: 12px;
+}
+.download-options{
+  display:none;
+  position:absolute;
+  bottom:110%;
+  left:0;
+  background:#000;
+  border-radius:10px;
+  box-shadow:0 0 20px #9900ff;
+  overflow:hidden;
+  min-width:180px;
+  z-index:20;
+  font-size: 12px;
+}
+
+.download-options a{
+  padding:6px;
+  text-decoration:none;
+  font-weight: bold;
+  display: block;
+  font-size: 11px;        /* 🔽 taille réduite */
+  padding: 4px 5px;       /* 🔽 moins de hauteur */
+  margin-bottom: 2px;
+  border-radius: 6px;
+  text-align: center;
+  background: #2b2b2b;
+  color: #fff;
+}
+
+.download-options a:hover{
+  background:#9900ff;
+  color:black;
+}
+
+/* DERNIER LIEN SANS MARGE */
+.category-game .download-options a:last-child {
+  margin-bottom: 0;
+}
+
+/* HOVER */
+.category-game .download-options a:hover {
+  background: #3b3b3b;
+}
+ footer {
+      text-align: center;
+      background-color: #111;
+      padding: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
 </style>
 </head>
 
@@ -185,23 +346,120 @@ h1 {
 
 <h2>🔥 Jeux Populaires</h2>
 <div class="game-cadre" id="popularGames">
+
+  <!-- FC Mobile -->
   <div class="game">
-    <img src="_fb954ae5-5e4a-409e-ae2e-02ba410a517b.jpg" alt="FC Mobile">
+    <img src="c:\Users\Admin\Downloads\_956f852a-9810-43d5-83ec-4999c196a9f0.jfif" alt="FC Mobile">
     <div class="game-info">
       <h4>FC Mobile</h4>
       <p>Football réaliste avec équipes officielles.</p>
-      <a class="btn-telecharger" href="https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile" target="_blank">📥 Télécharger</a>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile" target="_blank">📥 Play Store</a>
+          <a href="https://apkpure.com/fr/fc-mobile/com.ea.gp.fifamobile" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- Minecraft -->
   <div class="game">
-    <img src="https://play-lh.googleusercontent.com/6G5cWJxZ8JZ9xg5s9d5Lw=w526-h296-rw" alt="Minecraft">
+    <img src="_24d23639-a4b2-44ce-9737-5eba834d0a69.jpg" alt="Minecraft">
     <div class="game-info">
       <h4>Minecraft</h4>
-      <p>Jeu sandbox créatif et survie multijoueur.</p>
-      <a class="btn-telecharger" href="https://play.google.com/store/apps/details?id=com.mojang.minecraftpe" target="_blank">📥 Télécharger</a>
+      <p>Jeu créatif et survie multijoueur.</p>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.mojang.minecraftpe" target="_blank">📥 Play Store</a>
+          <a href="https://apps.apple.com/app/id479516143" target="_blank">🍎 App Store</a>
+          <a href="https://mcpedl.org/downloading/minecraft-pe-1-21/" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- Asphalt Nitro -->
+  <div class="game">
+    <img src="c:\Users\Admin\Downloads\_44a5eee9-69fe-43c7-bfed-7dec95d946ad.jfif" alt="Asphalt Nitro">
+    <div class="game-info">
+      <h4>Asphalt Nitro</h4>
+      <p>Course intense avec voitures de luxe.</p>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftA8HM" target="_blank">📥 Play Store</a>
+          <a href="https://asphalt-nitro.fr.malavida.com/android/download" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Talking Tom Hero Dash -->
+  <div class="game">
+    <img src="c:\Users\Admin\Downloads\_cd2f5c71-8b43-435f-a538-0a1918a96d46.jfif" alt="Talking Tom Hero Dash">
+    <div class="game-info">
+      <h4>Talking Tom Hero Dash</h4>
+      <p>Parcours les niveaux avec Tom et ses amis.</p>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.outfit7.herodash" target="_blank">📥 Play Store</a>
+          <a href="https://apps.apple.com/us/app/talking-tom-hero-dash/id1434807653" target="_blank">🍎 App Store</a>
+          <a href="" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Among Us -->
+  <div class="game">
+    <img src="_fb954ae5-5e4a-409e-ae2e-02ba410a517b.jpg" alt="Among Us">
+    <div class="game-info">
+      <h4>Among Us</h4>
+      <p>Trouve l'imposteur, ne fais confiance à personne.</p>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.innersloth.spacemafia" target="_blank">📥 Play Store</a>
+          <a href="https://apps.apple.com/app/id1351168404" target="_blank">🍎 App Store</a>
+          <a href="https://apkpure.com/fr/among-us/com.innersloth.spacemafia" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game">
+  <img src="c:\Users\Admin\Downloads\_579d713a-3d55-4224-b59f-230d405fe288.jfif" alt="Genshin Impact">
+  <div class="game-info">
+    <h4>Genshin Impact</h4>
+    <p>RPG monde ouvert spectaculaire action, aventure et exploration.</p>
+
+    <div class="download-box">
+      <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+
+      <div class="download-options">
+        <!-- Play Store -->
+        <a href="https://play.google.com/store/apps/details?id=com.miHoYo.GenshinImpact"
+           target="_blank">📥 Play Store</a>
+
+        <!-- App Store -->
+        <a href="https://apps.apple.com/app/id1517783697"
+           target="_blank">🍎 App Store</a>
+
+        <!-- APK -->
+        <a href="https://apkpure.com/genshin-impact/com.miHoYo.GenshinImpact"
+           target="_blank">⬇️ APK</a>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+
+</div>
+
 
 <h3>Nos Catégories</h3>
 <div class="bouton-cadre">
@@ -213,11 +471,18 @@ h1 {
   <div class="bouton" onclick="filterCategory('Simulation')">🛠 Simulation</div>
   <div class="bouton" onclick="filterCategory('Gourmand')">🍔 Gourmand</div>
   <div class="bouton" onclick="filterCategory('Multiplayer')">🌐 Multijoueur</div>
-  <div class="bouton" onclick="filterCategory('Casual')">🎲 Casual</div>
+  <div class="bouton" onclick="filterCategory('Mode')">👗 Mode</div>
 </div>
 
-<h2>📦 Jeux par Catégorie</h2>
-<div class="game-cadre" id="categoryGames"></div>
+<h2>🔍 Rechercher un jeu</h2>
+<div style="text-align:center; margin-bottom: 15px;">
+  <input type="text" id="searchInput" placeholder="Tape le nom du jeu..." 
+         style="width: 60%; padding: 8px; border-radius: 8px; border: 1px solid #9900ff; background: #1a0a3a; color: #fff;">
+</div>
+<div class="game-cadre" id="categoryGames">
+</div>
+<div id="game-list"></div>
+
 
 <h2>🆕 Nouveaux Jeux</h2>
 <div class="game-cadre" id="newGames">
@@ -233,47 +498,464 @@ h1 {
 
 <h2>🎯 Jeux de la catégorie sélectionnée</h2>
 <div class="game-cadre" id="filteredCategory"></div>
+ <script>
+const games = [ 
+  {
+    nom: "FC Mobile",
+    img: "c:\Users\Admin\Downloads\_956f852a-9810-43d5-83ec-4999c196a9f0.jfif",
+    description: "Football réaliste avec équipes officielles.",
+    playstore: "https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile",
+    apk: "https://apkpure.com/fc-mobile/com.ea.gp.fifamobile",
+    appstore: null,
+    categorie: "Sport"
+  },
+  {
+    nom: "Minecraft",
+    img: "_24d23639-a4b2-44ce-9737-5eba834d0a69.jpg",
+    description: "Jeu sandbox créatif et survie multijoueur.",
+    playstore: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe",
+    apk: "https://apkpure.com/minecraft/com.mojang.minecraftpe",
+    appstore: "https://apps.apple.com/app/id479516143",
+    categorie: "Aventure"
+  },
+  {
+    nom: "Asphalt Nitro",
+    img: "c:\Users\Admin\Downloads\_44a5eee9-69fe-43c7-bfed-7dec95d946ad.jfif",
+    description: "Courses arcade rapides et fun.",
+    playstore: "https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftANHM",
+    apk: "https://asphalt-nitro.fr.malavida.com/android/download",
+    appstore: null,
+    categorie: "Course"
+  },
+  {
+    nom: "Roblox",
+    img: "https://play-lh.googleusercontent.com/roblox=w526-h296-rw",
+    description: "Explore des mondes créés par la communauté.",
+    playstore: "https://play.google.com/store/apps/details?id=com.roblox.client",
+    apk: null,
+    appstore: null,
+    categorie: "Aventure"
+  },
+  {
+    nom: "Subway Surfers",
+    img: "https://play-lh.googleusercontent.com/Jk8Y9cWc1lZp2n=w526-h296-rw",
+    description: "Course infinie fun et rapide.",
+    playstore: "https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf",
+    apk: null,
+    appstore: null,
+    categorie: "Course"
+  },
+  {
+    nom: "Cooking Fever",
+    img: "https://play-lh.googleusercontent.com/abcd=w526-h296-rw",
+    description: "Gère ton restaurant et cuisine rapidement.",
+    playstore: "https://play.google.com/store/apps/details?id=com.nordcurrent.cookingcity",
+    apk: null,
+    appstore: null,
+    categorie: "Gourmand"
+  },
+  {
+    nom: "Dream League Soccer",
+    img: "https://play-lh.googleusercontent.com/dreamleague=w526-h296-rw",
+    description: "Joue et entraîne ton équipe de football.",
+    playstore: "https://play.google.com/store/apps/details?id=com.firsttouchgames.dls7",
+    apk: null,
+    appstore: null,
+    categorie: "Sport"
+  },
+  {
+    nom: "My Talking Tom",
+    img: "https://play-lh.googleusercontent.com/tom=w526-h296-rw",
+    description: "Prends soin de ton chat virtuel.",
+    playstore: "https://play.google.com/store/apps/details?id=com.outfit7.mytalkingtom2",
+    apk: null,
+    appstore: null,
+    categorie: "Casual"
+  },
 
-<script>
-// Liste des jeux (nom, image, catégorie, description, lien)
-const games = [
-  {nom: "FC Mobile", img:"_fb954ae5-5e4a-409e-ae2e-02ba410a517b.jpg", categorie:"Sport", description:"Football réaliste avec équipes officielles.", lien:"https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile"},
-  {nom: "Minecraft", img:"https://play-lh.googleusercontent.com/6G5cWJxZ8JZ9xg5s9d5Lw=w526-h296-rw", categorie:"Aventure", description:"Jeu sandbox créatif et survie multijoueur.", lien:"https://play.google.com/store/apps/details?id=com.mojang.minecraftpe"},
-  {nom: "Asphalt 8", img:"https://play-lh.googleusercontent.com/2Q7xgU9a1wLzJb9mM8qv=w526-h296-rw", categorie:"Course", description:"Course arcade intense avec voitures de luxe.", lien:"https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftA8HM"},
-  {nom: "Subway Surfers", img:"https://play-lh.googleusercontent.com/Jk8Y9cWc1lZp2n=w526-h296-rw", categorie:"Casual", description:"Course infinie fun et rapide.", lien:"https://apps.apple.com/app/id479516143"},
-  {nom: "Cooking Fever", img:"https://play-lh.googleusercontent.com/abcd=w526-h296-rw", categorie:"Gourmand", description:"Gère ton restaurant et cuisine rapidement.", lien:"#"},
-  {nom: "Call of Duty Mobile", img:"https://play-lh.googleusercontent.com/efgh=w526-h296-rw", categorie:"Multiplayer", description:"FPS multijoueur intense sur mobile.", lien:"#"}
+  {nom: "Angry Birds 2", img:"https://play-lh.googleusercontent.com/angrybirds2=w526-h296-rw", categorie:"Casual", description:"Lance les oiseaux et détruisez les cochons.", lien:"https://play.google.com/store/apps/details?id=com.rovio.baba"},
+  {nom: "Hay Day", img:"https://play-lh.googleusercontent.com/hayday=w526-h296-rw", categorie:"Simulation", description:"Gère ta ferme et fais prospérer tes cultures.", lien:"https://play.google.com/store/apps/details?id=com.supercell.hayday"},
+  {nom: "Pet Rescue Saga", img:"https://play-lh.googleusercontent.com/petrescue=w526-h296-rw", categorie:"Casual", description:"Sauve les animaux en résolvant des puzzles.", lien:"https://play.google.com/store/apps/details?id=com.king.petrescue"},
+  {nom: "Lego Legacy", img:"https://play-lh.googleusercontent.com/lego=w526-h296-rw", categorie:"Aventure", description:"Explore le monde Lego et combats des ennemis.", lien:"https://play.google.com/store/apps/details?id=com.lego.legacy"},
+  {nom: "Subway Princess Runner", img:"https://play-lh.googleusercontent.com/subwayprincess=w526-h296-rw", categorie:"Course", description:"Cours, saute et glisse dans une aventure urbaine.", lien:"https://play.google.com/store/apps/details?id=com.runner.subwayprincess"},
+  {nom: "Cooking Mama", img:"https://play-lh.googleusercontent.com/cookingmama=w526-h296-rw", categorie:"Gourmand", description:"Prépare des plats délicieux et amusants.", lien:"https://play.google.com/store/apps/details?id=com.majesco.cookingmama"},
+  {nom: "Roblox Fashion Show", img:"https://play-lh.googleusercontent.com/robloxfashion=w526-h296-rw", categorie:"Mode", description:"Participe à des concours de mode et crée des tenues.", lien:"https://www.roblox.com/games/188451125/Roblox-Fashion-Show"},
+  {nom: "FIFA Mobile", img:"https://play-lh.googleusercontent.com/fifamobile=w526-h296-rw", categorie:"Sport", description:"Crée ton équipe et joue des matchs de football réalistes.", lien:"https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile"},
+  {nom: "Jetpack Joyride", img:"https://play-lh.googleusercontent.com/jetpack=w526-h296-rw", categorie:"Casual", description:"Cours avec ton jetpack et évite les obstacles.", lien:"https://play.google.com/store/apps/details?id=com.halfbrick.jetpackjoyride"},
+  {nom: "Stumble Guys", img: "https://play-lh.googleusercontent.com/stumbleguys=w526-h296-rw", categorie: "Casual", description: "Jeu multijoueur fun avec des parcours délirants et colorés.",lien: "https://play.google.com/store/apps/details?id=com.kitkagames.fallbuddies"},
+  {nom: "Hay Day", img: "https://play-lh.googleusercontent.com/hayday=w526-h296-rw", categorie: "Simulation", description: "Construis ta ferme, récolte et échange avec d'autres joueurs.", lien: "https://play.google.com/store/apps/details?id=com.supercell.hayday"},
+  {nom: "Mini Metro", img: "https://play-lh.googleusercontent.com/minimetro=w526-h296-rw", categorie: "Reflexion", description: "Crée un réseau de métro efficace dans une ville en croissance.", lien: "https://play.google.com/store/apps/details?id=nz.co.codepoint.minimetro"},
+  {nom: "eFootball", img: "https://play-lh.googleusercontent.com/efootball=w526-h296-rw", categorie: "Sport", description: "Football réaliste avec matchs en ligne.", lien: "https://play.google.com/store/apps/details?id=jp.konami.pesam"},
+  {nom: "Score! Hero", img: "https://play-lh.googleusercontent.com/scorehero=w526-h296-rw", categorie: "Sport", description: "Vis la carrière d’un héros du football.", lien: "https://play.google.com/store/apps/details?id=com.firsttouchgames.story"},
+  {nom: "Hill Climb Racing", img: "https://play-lh.googleusercontent.com/hillclimb=w526-h296-rw", categorie: "Course", description: "Course fun avec véhicules délirants.", lien: "https://play.google.com/store/apps/details?id=com.fingersoft.hillclimb"},
+  {
+    nom: "Beach Buggy Racing",
+    img: "https://play-lh.googleusercontent.com/beachbuggy=w526-h296-rw",
+    categorie: "Course",
+    description: "Karting arcade fun et coloré.",
+    lien: "https://play.google.com/store/apps/details?id=com.vectorunit.purple.googleplay"
+  },
+  {
+    nom: "Traffic Rider",
+    img: "https://play-lh.googleusercontent.com/trafficrider=w526-h296-rw",
+    categorie: "Course",
+    description: "Moto immersive à la première personne.",
+    lien: "https://play.google.com/store/apps/details?id=com.skgames.trafficrider"
+  },
+
+  {
+    nom: "Clash Royale",
+    img: "https://play-lh.googleusercontent.com/clashroyale=w526-h296-rw",
+    categorie: "Strategie",
+    description: "Duels stratégiques en temps réel.",
+    lien: "https://play.google.com/store/apps/details?id=com.supercell.clashroyale"
+  },
+  {
+    nom: "Plants vs Zombies 2",
+    img: "https://play-lh.googleusercontent.com/pvz2=w526-h296-rw",
+    categorie: "Strategie",
+    description: "Défends ton jardin avec des plantes.",
+    lien: "https://play.google.com/store/apps/details?id=com.ea.game.pvz2_row"
+  },
+  {
+    nom: "Kingdom Rush",
+    img: "https://play-lh.googleusercontent.com/kingdomrush=w526-h296-rw",
+    categorie: "Strategie",
+    description: "Tower defense légendaire et fun.",
+    lien: "https://play.google.com/store/apps/details?id=com.ironhidegames.android.kingdomrush"
+  },
+
+  {
+    nom: "SimCity BuildIt",
+    img: "https://play-lh.googleusercontent.com/simcity=w526-h296-rw",
+    categorie: "Simulation",
+    description: "Construis et gère ta ville.",
+    lien: "https://play.google.com/store/apps/details?id=com.ea.game.simcitymobile_row"
+  },
+  {
+    nom: "Township",
+    img: "https://play-lh.googleusercontent.com/township=w526-h296-rw",
+    categorie: "Simulation",
+    description: "Ville et ferme en même temps.",
+    lien: "https://play.google.com/store/apps/details?id=com.playrix.township"
+  },
+
+  {
+    nom: "PK XD",
+    img: "https://play-lh.googleusercontent.com/pkxd=w526-h296-rw",
+    categorie: "Mode",
+    description: "Avatar, vêtements et monde fun.",
+    lien: "https://play.google.com/store/apps/details?id=com.movile.playkids.pkxd"
+  },
+  {
+    nom: "Project Makeover",
+    img: "https://play-lh.googleusercontent.com/projectmakeover=w526-h296-rw",
+    categorie: "Mode",
+    description: "Relooking, maquillage et décoration.",
+    lien: "https://play.google.com/store/apps/details?id=com.magicwardrobe.projectmakeover"
+  },
+
+  {
+    nom: "Among Us",
+    img: "https://play-lh.googleusercontent.com/amongus=w526-h296-rw",
+    categorie: "Multiplayer",
+    description: "Déduction sociale entre amis.",
+    lien: "https://play.google.com/store/apps/details?id=com.innersloth.spacemafia"
+  },
+  {
+    nom: "Stumble Guys",
+    img: "https://play-lh.googleusercontent.com/stumbleguys=w526-h296-rw",
+    categorie: "Multiplayer",
+    description: "Parcours multijoueur fun et coloré.",
+    lien: "https://play.google.com/store/apps/details?id=com.kitkagames.fallbuddies"
+  },
+
+  {
+    nom: "Monument Valley",
+    img: "https://play-lh.googleusercontent.com/monumentvalley=w526-h296-rw",
+    categorie: "Reflexion",
+    description: "Puzzle artistique et relaxant.",
+    lien: "https://play.google.com/store/apps/details?id=com.ustwo.monumentvalley"
+  },
+  {
+    nom: "Cut the Rope",
+    img: "https://play-lh.googleusercontent.com/cuttherope=w526-h296-rw",
+    categorie: "Reflexion",
+    description: "Puzzle logique fun.",
+    lien: "https://play.google.com/store/apps/details?id=com.zeptolab.ctr.ads"
+  },
+
+  {
+    nom: "Alto’s Adventure",
+    img: "https://play-lh.googleusercontent.com/altosadventure=w526-h296-rw",
+    categorie: "Aventure",
+    description: "Glisse paisible dans de beaux paysages.",
+    lien: "https://play.google.com/store/apps/details?id=com.noodlecake.altosadventure"
+  },
+  {
+    nom: "Sky: Children of the Light",
+    img: "https://play-lh.googleusercontent.com/sky=w526-h296-rw",
+    categorie: "Aventure",
+    description: "Exploration poétique en coopération.",
+    lien: "https://play.google.com/store/apps/details?id=com.tgc.sky.android"
+  },
+  {nom: "Mario Kart Tour", img:"https://play-lh.googleusercontent.com/mariokart=w526-h296-rw", categorie:"Course", description:"Courses fun avec Mario et ses amis.", lien:"https://play.google.com/store/apps/details?id=com.nintendo.zaka"},
+  {nom: "Clash of Clans", img:"https://play-lh.googleusercontent.com/clashclans=w526-h296-rw", categorie:"Strategie", description:"Construis ton village et bats tes ennemis.", lien:"https://play.google.com/store/apps/details?id=com.supercell.clashofclans"},
+  {nom: "Candy Crush Saga", img:"https://play-lh.googleusercontent.com/candycrush=w526-h296-rw", categorie:"Reflexion", description:"Résous des puzzles sucrés et addictifs.", lien:"https://play.google.com/store/apps/details?id=com.king.candycrushsaga"},
+  {nom: "Among Us Airship", img:"https://play-lh.googleusercontent.com/amongusairship=w526-h296-rw", categorie:"Multiplayer", description:"Nouvelle carte pour déduction sociale.", lien:"https://play.google.com/store/apps/details?id=com.innersloth.spacemafia"},
+  {nom: "Subway Surf Brazil", img:"https://play-lh.googleusercontent.com/subwaybrazil=w526-h296-rw", categorie:"Mode", description:"Course infinie colorée.", lien:"https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf"},
+  {nom: "Temple Run 2", img:"https://play-lh.googleusercontent.com/templerun2=w526-h296-rw", categorie:"Aventure", description:"Cours et esquive les pièges.", lien:"https://play.google.com/store/apps/details?id=com.imangi.templerun2"},
+  {nom: "Angry Birds Friends", img:"https://play-lh.googleusercontent.com/angrybirdsfriends=w526-h296-rw", categorie:"Reflexion", description:"Participe à des tournois d’oiseaux.", lien:"https://play.google.com/store/apps/details?id=com.rovio.babafriends"},
+  {nom: "Fruit Ninja", img:"https://play-lh.googleusercontent.com/fruitninja=w526-h296-rw", categorie:"Reflexion", description:"Tranche les fruits à la vitesse de l’éclair.", lien:"https://play.google.com/store/apps/details?id=com.halfbrick.fruitninja"},
+  {nom: "Gardenscapes", img:"https://play-lh.googleusercontent.com/gardenscapes=w526-h296-rw", categorie:"Simulation", description:"Rénove et décore ton jardin.", lien:"https://play.google.com/store/apps/details?id=com.playrix.gardenscapes"},
+  {nom: "Animal Crossing Pocket Camp", img:"https://play-lh.googleusercontent.com/animalcrossing=w526-h296-rw", categorie:"Simulation", description:"Gère ton campement avec des animaux mignons.", lien:"https://play.google.com/store/apps/details?id=com.nintendo.zaca"},
+  {nom: "Roblox Adopt Me", img:"https://play-lh.googleusercontent.com/adoptme=w526-h296-rw", categorie:"Mode", description:"Adopte et soigne des animaux virtuels.", lien:"https://www.roblox.com/games/920587237/Adopt-Me"},
+  {nom: "Mini World", img:"https://play-lh.googleusercontent.com/miniworld=w526-h296-rw", categorie:"Aventure", description:"Crée ton monde et explore avec des amis.", lien:"https://play.google.com/store/apps/details?id=com.mcbox.mm"},
+  {nom: "Dragon City", img:"https://play-lh.googleusercontent.com/dragoncity=w526-h296-rw", categorie:"Simulation", description:"Éleve et combats des dragons.", lien:"https://play.google.com/store/apps/details?id=com.socialpoint.dragoncity"},
+  {nom: "Pet Hotel", img:"https://play-lh.googleusercontent.com/pethotel=w526-h296-rw", categorie:"Mode", description:"Gère un hôtel pour animaux adorables.", lien:"https://play.google.com/store/apps/details?id=com.tapps.pethotel"},
+  {nom: "Jetpack Joyride 2", img:"https://play-lh.googleusercontent.com/jetpack2=w526-h296-rw", categorie:"Course", description:"Nouvelle aventure avec ton jetpack.", lien:"https://play.google.com/store/apps/details?id=com.halfbrick.jetpackjoyride2"},
+  {nom: "SimCity Deluxe", img:"https://play-lh.googleusercontent.com/simcitydeluxe=w526-h296-rw", categorie:"Simulation", description:"Construis et gère une ville moderne.", lien:"https://play.google.com/store/apps/details?id=com.ea.game.simcitymobile_row"},
+  {nom: "Geometry Dash", img:"https://play-lh.googleusercontent.com/geometrydash=w526-h296-rw", categorie:"Reflexion", description:"Saute et évite les obstacles rythmés.", lien:"https://play.google.com/store/apps/details?id=com.robtopx.geometryjump"},
+  {nom: "Real Racing 3", img:"https://play-lh.googleusercontent.com/realracing3=w526-h296-rw", categorie:"Course", description:"Courses ultra-réalistes et compétitives.", lien:"https://play.google.com/store/apps/details?id=com.ea.games.r3_row"},
+  {nom: "Farm Heroes Saga", img:"https://play-lh.googleusercontent.com/farmheroes=w526-h296-rw", categorie:"Gourmand", description:"Combine des fruits et légumes pour progresser.", lien:"https://play.google.com/store/apps/details?id=com.king.farmheroes"},
+  {nom: "Toon Blast", img:"https://play-lh.googleusercontent.com/toonblast=w526-h296-rw", categorie:"Reflexion", description:"Puzzle cartoon fun et addictif.", lien:"https://play.google.com/store/apps/details?id=com.peakgames.toonblast"},
+   {nom: "Brawl Stars", img:"https://play-lh.googleusercontent.com/brawlstars=w526-h296-rw", categorie:"Multiplayer", description:"Batailles multijoueur rapides et fun.", lien:"https://play.google.com/store/apps/details?id=com.supercell.brawlstars"},
+  {nom: "Mario Run", img:"https://play-lh.googleusercontent.com/mariorun=w526-h296-rw", categorie:"Aventure", description:"Courses et plateformes avec Mario.", lien:"https://play.google.com/store/apps/details?id=com.nintendo.mariorun"},
+  {nom: "Cooking Craze", img:"https://play-lh.googleusercontent.com/cookingcraze=w526-h296-rw", categorie:"Gourmand", description:"Cuisine rapide et fun à chaque niveau.", lien:"https://play.google.com/store/apps/details?id=com.bigfishgames.cookingcraze"},
+  {nom: "Angry Birds Match", img:"https://play-lh.googleusercontent.com/angrybirdsmatch=w526-h296-rw", categorie:"Reflexion", description:"Puzzle coloré avec les oiseaux.", lien:"https://play.google.com/store/apps/details?id=com.rovio.angrybirdsmatch"},
+  {nom: "Subway Princess Runner", img:"https://play-lh.googleusercontent.com/subwayprincess=w526-h296-rw", categorie:"Course", description:"Cours et glisse dans une ville colorée.", lien:"https://play.google.com/store/apps/details?id=com.runner.subwayprincess"},
+  {nom: "Pokémon Go", img:"https://play-lh.googleusercontent.com/pokemongo=w526-h296-rw", categorie:"Aventure", description:"Attrape des Pokémon dans le monde réel.", lien:"https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo"},
+  {nom: "Simpsons Tapped Out", img:"https://play-lh.googleusercontent.com/simpsons=w526-h296-rw", categorie:"Simulation", description:"Construis et gère Springfield.", lien:"https://play.google.com/store/apps/details?id=com.ea.simpsonstappedout"},
+  {nom: "Fruit Link", img:"https://play-lh.googleusercontent.com/fruitlink=w526-h296-rw", categorie:"Reflexion", description:"Connecte les fruits pour avancer.", lien:"https://play.google.com/store/apps/details?id=com.ziwgo.fruitlink"},
+  {nom: "Mini World Block Art", img:"https://play-lh.googleusercontent.com/miniworldblock=w526-h296-rw", categorie:"Aventure", description:"Crée et explore des mondes cubiques.", lien:"https://play.google.com/store/apps/details?id=com.mcbox.mm"},
+  {nom: "My Cafe", img:"https://play-lh.googleusercontent.com/mycafe=w526-h296-rw", categorie:"Simulation", description:"Gère ton café et fais prospérer ton business.", lien:"https://play.google.com/store/apps/details?id=com.my.cafe"},
+  {nom: "Bowmasters", img:"https://play-lh.googleusercontent.com/bowmasters=w526-h296-rw", categorie:"Reflexion", description:"Duel précis et fun avec arcs et flèches.", lien:"https://play.google.com/store/apps/details?id=com.miniclip.bowmasters"},
+  {nom: "Subway Surf India", img:"https://play-lh.googleusercontent.com/subwayindia=w526-h296-rw", categorie:"Course", description:"Course infinie avec défis indiens.", lien:"https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf"},
+  {nom: "Minecraft Dungeons", img:"https://play-lh.googleusercontent.com/mcdungeons=w526-h296-rw", categorie:"Aventure", description:"Donjons et exploration multijoueur.", lien:"https://play.google.com/store/apps/details?id=com.microsoft.minecraftdungeons"},
+  {nom: "Temple Run", img:"https://play-lh.googleusercontent.com/templerun=w526-h296-rw", categorie:"Aventure", description:"Évite les pièges et cours sans fin.", lien:"https://play.google.com/store/apps/details?id=com.imangi.templerun"},
+  {nom: "Talking Angela", img:"https://play-lh.googleusercontent.com/talkingangela=w526-h296-rw", categorie:"Mode", description:"Prends soin de ton chat virtuel.", lien:"https://play.google.com/store/apps/details?id=com.outfit7.talkingangela"},
+  {nom: "Roblox Tower of Hell", img:"https://play-lh.googleusercontent.com/towerofhell=w526-h296-rw", categorie:"Reflexion", description:"Parcours d’obstacles challenging multijoueur.", lien:"https://www.roblox.com/games/1962086868/Tower-of-Hell"},
+  {nom: "CSR Racing 2", img:"https://play-lh.googleusercontent.com/csrracing2=w526-h296-rw", categorie:"Course", description:"Course réaliste et tuning de voitures.", lien:"https://play.google.com/store/apps/details?id=com.naturalmotion.csrracing2"},
+  {nom: "Cooking Joy", img:"https://play-lh.googleusercontent.com/cookingjoy=w526-h296-rw", categorie:"Gourmand", description:"Cuisine rapide avec des défis amusants.", lien:"https://play.google.com/store/apps/details?id=com.cookingjoy.game"},
+  {nom: "Angry Gran Run", img:"https://play-lh.googleusercontent.com/angrygranrun=w526-h296-rw", categorie:"Course", description:"Cours avec grand-mère furieuse et évite obstacles.", lien:"https://play.google.com/store/apps/details?id=com.fungames.angrygranrun"},
+  {nom: "Lords Mobile", img:"https://play-lh.googleusercontent.com/lordsmobile=w526-h296-rw", categorie:"Strategie", description:"Stratégie en temps réel et conquêtes.", lien:"https://play.google.com/store/apps/details?id=com.igg.android.lordsmobile"},
+    {nom: "Subway Surfers Egypt", img:"https://play-lh.googleusercontent.com/subwayegypt=w526-h296-rw", categorie:"Course", description:"Cours dans le désert et évite obstacles.", lien:"https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf"},
+  {nom: "Farm Heroes Saga", img:"https://play-lh.googleusercontent.com/farmheroes=w526-h296-rw", categorie:"Reflexion", description:"Résous des puzzles colorés et amusants.", lien:"https://play.google.com/store/apps/details?id=com.king.farmheroessaga"},
+  {nom: "Among Us Space Adventure", img:"https://play-lh.googleusercontent.com/amongusadventure=w526-h296-rw", categorie:"Multiplayer", description:"Jeu de déduction sociale multijoueur.", lien:"https://play.google.com/store/apps/details?id=com.innersloth.spacemafia"},
+  {nom: "Subway Surf Japan", img:"https://play-lh.googleusercontent.com/subwayjapan=w526-h296-rw", categorie:"Course", description:"Cours sur les rails japonais.", lien:"https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf"},
+  {nom: "Angry Birds Dream Blast", img:"https://play-lh.googleusercontent.com/angrydream=w526-h296-rw", categorie:"Reflexion", description:"Casse les bulles et résous les puzzles.", lien:"https://play.google.com/store/apps/details?id=com.rovio.dreamblast"},
+  {nom: "My Talking Angela 2", img:"https://play-lh.googleusercontent.com/talkingangela2=w526-h296-rw", categorie:"Mode", description:"Suis les aventures d'Angela et habille-la.", lien:"https://play.google.com/store/apps/details?id=com.outfit7.talkingangela2"},
+  {nom: "Jetpack Joyride 2", img:"https://play-lh.googleusercontent.com/jetpack2=w526-h296-rw", categorie:"Casual", description:"Cours avec ton jetpack et défis amusants.", lien:"https://play.google.com/store/apps/details?id=com.halfbrick.jetpackjoyride2"},
+  {nom: "Roblox MeepCity", img:"https://play-lh.googleusercontent.com/meepcity=w526-h296-rw", categorie:"Mode", description:"Crée, explore et socialise dans MeepCity.", lien:"https://www.roblox.com/games/370731277"},
+  {nom: "Cooking Diary", img:"https://play-lh.googleusercontent.com/cookingdiary=w526-h296-rw", categorie:"Gourmand", description:"Cuisine et gère ton restaurant.", lien:"https://play.google.com/store/apps/details?id=com.cookingdiary.game"},
+  {nom: "Clash of Clans", img:"https://play-lh.googleusercontent.com/clashclans=w526-h296-rw", categorie:"Strategie", description:"Construis ton village et défends-le.", lien:"https://play.google.com/store/apps/details?id=com.supercell.clashofclans"},
+  {nom: "Candy Crush Friends", img:"https://play-lh.googleusercontent.com/candyfriends=w526-h296-rw", categorie:"Reflexion", description:"Résous des puzzles sucrés et colorés.", lien:"https://play.google.com/store/apps/details?id=com.king.candycrushfriends"},
+  {nom: "Temple Run 2", img:"https://play-lh.googleusercontent.com/templerun2=w526-h296-rw", categorie:"Aventure", description:"Cours à travers temples et obstacles.", lien:"https://play.google.com/store/apps/details?id=com.imangi.templerun2"},
+  {nom: "Angry Birds Classic", img:"https://play-lh.googleusercontent.com/angryclassic=w526-h296-rw", categorie:"Reflexion", description:"Lance les oiseaux et détruis les cochons.", lien:"https://play.google.com/store/apps/details?id=com.rovio.angrybirds"},
+  {nom: "Dream League Soccer 2025", img:"https://play-lh.googleusercontent.com/dls2025=w526-h296-rw", categorie:"Sport", description:"Football réaliste et compétitif.", lien:"https://play.google.com/store/apps/details?id=com.firsttouchgames.dls7"},
+  {nom: "Asphalt 9", img:"https://play-lh.googleusercontent.com/asphalt9=w526-h296-rw", categorie:"Course", description:"Courses intenses et voitures impressionnantes.", lien:"https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftA9HM"},
+  {nom: "PK XD World", img:"https://play-lh.googleusercontent.com/pkxdworld=w526-h296-rw", categorie:"Mode", description:"Avatar, jeux et socialisation fun.", lien:"https://play.google.com/store/apps/details?id=com.movile.playkids.pkxd"},
+  {nom: "Mini Militia", img:"https://play-lh.googleusercontent.com/minimilitia=w526-h296-rw", categorie:"Multiplayer", description:"Batailles multijoueur fun et rapides.", lien:"https://play.google.com/store/apps/details?id=com.appsomniacs.da2"},
+  {nom: "Township 2", img:"https://play-lh.googleusercontent.com/township2=w526-h296-rw", categorie:"Simulation", description:"Construis ta ville et développe-la.", lien:"https://play.google.com/store/apps/details?id=com.playrix.township2"},
+  {nom: "Ludo King", img:"https://play-lh.googleusercontent.com/ludoking=w526-h296-rw", categorie:"Multiplayer", description:"Jeu classique de Ludo avec amis.", lien:"https://play.google.com/store/apps/details?id=com.ludo.king"},
+  {nom: "Subway Surfers USA", img:"https://play-lh.googleusercontent.com/subwayusa=w526-h296-rw", categorie:"Course", description:"Cours à travers les rues américaines.", lien:"https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf"},
+  {nom:"Mario Kart Tour", img:"https://play-lh.googleusercontent.com/mariokart=w526-h296-rw", categorie:"Course", description:"Courses fun avec personnages emblématiques.", lien:"https://play.google.com/store/apps/details?id=com.nintendo.zaka"},
+  {nom:"Clash of Clans", img:"https://play-lh.googleusercontent.com/clashofclans=w526-h296-rw", categorie:"Strategie", description:"Construis ton village et combats des clans.", lien:"https://play.google.com/store/apps/details?id=com.supercell.clashofclans"},
+  {nom:"Brawl Stars", img:"https://play-lh.googleusercontent.com/brawlstars=w526-h296-rw", categorie:"Multiplayer", description:"Combat multijoueur rapide et fun.", lien:"https://play.google.com/store/apps/details?id=com.supercell.brawlstars"},
+  {nom:"Candy Crush Saga", img:"https://play-lh.googleusercontent.com/candycrush=w526-h296-rw", categorie:"Reflexion", description:"Résous des puzzles sucrés et colorés.", lien:"https://play.google.com/store/apps/details?id=com.king.candycrushsaga"},
+  {nom:"Angry Birds Dream Blast", img:"https://play-lh.googleusercontent.com/angrybirdsdream=w526-h296-rw", categorie:"Reflexion", description:"Puzzle fun avec les oiseaux.", lien:"https://play.google.com/store/apps/details?id=com.rovio.dreamblast"},
+  {nom:"Fruit Ninja", img:"https://play-lh.googleusercontent.com/fruitninja=w526-h296-rw", categorie:"Reflexion", description:"Tranche les fruits rapidement et amusant.", lien:"https://play.google.com/store/apps/details?id=com.halfbrick.fruitninjafree"},
+  {nom:"Subway Princess Runner 2", img:"https://play-lh.googleusercontent.com/subwayprincess2=w526-h296-rw", categorie:"Course", description:"Cours et glisse dans une aventure urbaine.", lien:"https://play.google.com/store/apps/details?id=com.runner.subwayprincess2"},
+  {nom:"Pou", img:"https://play-lh.googleusercontent.com/pou=w526-h296-rw", categorie:"Casual", description:"Prends soin de ton animal virtuel.", lien:"https://play.google.com/store/apps/details?id=me.pou.app"},
+  {nom:"Temple Run 2", img:"https://play-lh.googleusercontent.com/templerun2=w526-h296-rw", categorie:"Course", description:"Cours sans fin et évite les obstacles.", lien:"https://play.google.com/store/apps/details?id=com.imangi.templerun2"},
+  {nom:"My Talking Angela", img:"https://play-lh.googleusercontent.com/myangela=w526-h296-rw", categorie:"Casual", description:"Prends soin de ton chat virtuel Angela.", lien:"https://play.google.com/store/apps/details?id=com.outfit7.mytalkingangela"},
+  {nom:"Zombie Tsunami", img:"https://play-lh.googleusercontent.com/zombietsunami=w526-h296-rw", categorie:"Course", description:"Transforme les citoyens en zombies et cours.", lien:"https://play.google.com/store/apps/details?id=fr.mobigame.zombietsunami"},
+  {nom:"Roblox Adopt Me", img:"https://play-lh.googleusercontent.com/robloxadoptme=w526-h296-rw", categorie:"Mode", description:"Adopte des animaux et explore.", lien:"https://www.roblox.com/games/920587237/Adopt-Me"},
+  {nom:"Temple Run", img:"https://play-lh.googleusercontent.com/templerun=w526-h296-rw", categorie:"Course", description:"Cours à travers temples et obstacles.", lien:"https://play.google.com/store/apps/details?id=com.imangi.templerun"},
+  {nom:"Pou 2", img:"https://play-lh.googleusercontent.com/pou2=w526-h296-rw", categorie:"Casual", description:"Nouvelle aventure avec ton animal virtuel.", lien:"https://play.google.com/store/apps/details?id=me.pou2.app"},
+  {nom:"Angry Birds Classic", img:"https://play-lh.googleusercontent.com/angrybirdsclassic=w526-h296-rw", categorie:"Reflexion", description:"Lance les oiseaux sur les cochons.", lien:"https://play.google.com/store/apps/details?id=com.rovio.angrybirds"},
+  {nom:"Subway Surfers New York", img:"https://play-lh.googleusercontent.com/subwaysurfersny=w526-h296-rw", categorie:"Course", description:"Cours à travers New York.", lien:"https://play.google.com/store/apps/details?id=com.kiloo.subwaysurfers"},
+  {nom:"Minecraft Pocket Edition", img:"https://play-lh.googleusercontent.com/minecraftpe=w526-h296-rw", categorie:"Aventure", description:"Créer et explorer des mondes.", lien:"https://play.google.com/store/apps/details?id=com.mojang.minecraftpe"},
+  {nom:"Dream League Soccer 2025", img:"https://play-lh.googleusercontent.com/dls2025=w526-h296-rw", categorie:"Sport", description:"Nouveaux joueurs et compétitions.", lien:"https://play.google.com/store/apps/details?id=com.firsttouchgames.dls7"},
+  {nom:"Jetpack Joyride 2", img:"https://play-lh.googleusercontent.com/jetpack2=w526-h296-rw", categorie:"Casual", description:"Cours et évite les obstacles.", lien:"https://play.google.com/store/apps/details?id=com.halfbrick.jetpackjoyride2"},
+  {nom:"Fruit Slice", img:"https://play-lh.googleusercontent.com/fruitslice=w526-h296-rw", categorie:"Reflexion", description:"Tranche les fruits avant qu'ils tombent.", lien:"https://play.google.com/store/apps/details?id=com.fruitslice.game"},
+  {nom:"Clash of Lords 2", img:"https://play-lh.googleusercontent.com/clashlords2=w526-h296-rw", categorie:"Strategie", description:"Combat stratégique et gestion de château.", lien:"https://play.google.com/store/apps/details?id=com.igg.android.clashoflords2"},
+  {nom:"Mini World", img:"https://play-lh.googleusercontent.com/miniworld=w526-h296-rw", categorie:"Aventure", description:"Créer et explorer des mondes 3D.", lien:"https://play.google.com/store/apps/details?id=com.miniworld"},
+  {nom:"Cooking Dash", img:"https://play-lh.googleusercontent.com/cookingdash=w526-h296-rw", categorie:"Gourmand", description:"Gère ton restaurant et sert vite.", lien:"https://play.google.com/store/apps/details?id=com.tabtale.cookingdash"},
+  {nom:"Lego Tower", img:"https://play-lh.googleusercontent.com/legotower=w526-h296-rw", categorie:"Strategie", description:"Construis ta tour et gère ses habitants.", lien:"https://play.google.com/store/apps/details?id=com.lego.legotower"},
+  {nom:"My Talking Hank", img:"https://play-lh.googleusercontent.com/myhank=w526-h296-rw", categorie:"Casual", description:"Prends soin de Hank, le chien virtuel.", lien:"https://play.google.com/store/apps/details?id=com.outfit7.mytalkinghank"},
+   {nom:"The Sims FreePlay", img:"https://link-to-sims-freeplay-image", categorie:"Simulation", description:"Crée ta ville et vis la vie de tes Sims.", lien:"https://apps.apple.com/app/the-sims-freeplay/id459703785"},
+  {nom:"The Sims 3", img:"https://link-to-sims3-image", categorie:"Simulation", description:"Vie virtuelle avec liberté totale.", lien:"https://apps.apple.com/app/the-sims-3/id616895130"},
+  {nom:"Dream League Soccer 2025", img:"https://link-to-dls-image", categorie:"Sport", description:"Football réaliste, équipe personnalisable.", lien:"https://play.google.com/store/apps/details?id=com.firsttouchgames.dls7"},
+  {nom:"Minecraft", img:"https://link-to-minecraft-image", categorie:"Aventure", description:"Sandbox créatif et survie multijoueur.", lien:"https://apps.apple.com/app/minecraft/id479516143"},
+  {nom:"Roblox", img:"https://link-to-roblox-image", categorie:"Mode", description:"Explore et crée des mondes fun.", lien:"https://apps.apple.com/app/roblox/id431946152"},
+  {nom:"Asphalt 9: Legends", img:"https://link-to-asphalt9-image", categorie:"Course", description:"Courses ultra rapides avec graphismes réalistes.", lien:"https://apps.apple.com/app/asphalt-9-legends/id805603214"},
+  {nom:"Among Us", img:"https://link-to-amongus-image", categorie:"Multiplayer", description:"Déduction sociale entre amis.", lien:"https://apps.apple.com/app/among-us/id1351168404"},
+  {nom:"Clash Royale", img:"https://link-to-clashroyale-image", categorie:"Strategie", description:"Duels stratégiques en temps réel.", lien:"https://apps.apple.com/app/clash-royale/id1053012308"},
+  {nom:"Candy Crush Saga", img:"https://link-to-candycrush-image", categorie:"Reflexion", description:"Puzzle addictif et coloré.", lien:"https://apps.apple.com/app/candy-crush-saga/id553834731"},
+  {nom:"Subway Surfers", img:"https://link-to-subwaysurfers-image", categorie:"Course", description:"Courses infinies, obstacles fun.", lien:"https://apps.apple.com/app/subway-surfers/id512939461"},
+  {nom:"SimCity BuildIt", img:"https://link-to-simcity-image", categorie:"Simulation", description:"Construis et gère ta ville.", lien:"https://apps.apple.com/app/simcity-buildit/id503658411"},
+  {nom:"Monument Valley 2", img:"https://link-to-monumentvalley2-image", categorie:"Reflexion", description:"Puzzle artistique et immersif.", lien:"https://apps.apple.com/app/monument-valley-2/id1187265767"},
+  {nom:"Genshin Impact", img:"https://link-to-genshinimpact-image", categorie:"Aventure", description:"RPG action dans un monde ouvert.", lien:"https://apps.apple.com/app/genshin-impact/id1517783697"},
+  {nom:"Pokemon GO", img:"https://link-to-pokemongo-image", categorie:"Aventure", description:"Attrape les Pokémon dans le monde réel.", lien:"https://apps.apple.com/app/pokémon-go/id1094591345"},
+  {nom:"Fortnite", img:"https://link-to-fortnite-image", categorie:"Multiplayer", description:"Battle royale populaire et fun.", lien:"https://www.epicgames.com/fortnite/en-US/mobile"},
+  {nom:"Roblox Fashion Show", img:"https://link-to-fashionshow-image", categorie:"Mode", description:"Concours et création de tenues.", lien:"https://www.roblox.com/games/188451125/Roblox-Fashion-Show"},
+  {nom:"Angry Birds 2", img:"https://link-to-angrybirds2-image", categorie:"Reflexion", description:"Lance les oiseaux et détruis les cochons.", lien:"https://apps.apple.com/app/angry-birds-2/id880047117"},
+  {nom:"Hay Day", img:"https://link-to-hayday-image", categorie:"Simulation", description:"Gère ta ferme et commerce avec tes voisins.", lien:"https://apps.apple.com/app/hay-day/id506627515"},
+  {nom:"Jetpack Joyride", img:"https://link-to-jetpackjoyride-image", categorie:"Casual", description:"Cours avec ton jetpack et évite les obstacles.", lien:"https://apps.apple.com/app/jetpack-joyride/id457446957"},
+  {nom:"Hill Climb Racing 2", img:"https://link-to-hillclimb2-image", categorie:"Course", description:"Courses fun avec véhicules délirants.", lien:"https://apps.apple.com/app/hill-climb-racing-2/id1205114069"},
+  {nom:"PK XD", img:"https://link-to-pkxd-image", categorie:"Mode", description:"Avatar, vêtements et monde fun.", lien:"https://apps.apple.com/app/pk-xd/id1499882686"},
+  {nom:"Traffic Rider", img:"https://link-to-trafficrider-image", categorie:"Course", description:"Moto immersive à la première personne.", lien:"https://apps.apple.com/app/traffic-rider/id601400152"},
+  {nom:"Mini Metro", img:"https://link-to-minimetro-image", categorie:"Strategie", description:"Crée un réseau de métro efficace.", lien:"https://apps.apple.com/app/mini-metro/id843609056"},
+  {nom:"Sky: Children of the Light", img:"https://link-to-sky-image", categorie:"Aventure", description:"Exploration poétique en coopération.", lien:"https://apps.apple.com/app/sky-children-of-the-light/id1462119362"},
+  {nom:"Cooking Fever", img:"https://link-to-cookingfever-image", categorie:"Gourmand", description:"Gère ton restaurant et cuisine rapidement.", lien:"https://apps.apple.com/app/cooking-fever/id899146361"},
+  {nom:"Subway Princess Runner", img:"https://link-to-subwayprincess-image", categorie:"Course", description:"Cours, saute et glisse dans une aventure urbaine.", lien:"https://apps.apple.com/app/subway-princess-runner/id1234567890"},
+  {nom:"Project Makeover", img:"https://link-to-projectmakeover-image", categorie:"Mode", description:"Relooking, maquillage et décoration.", lien:"https://apps.apple.com/app/project-makeover/id1444082220"},
+  {nom:"Stumble Guys", img:"https://link-to-stumbleguys-image", categorie:"Multiplayer", description:"Jeu multijoueur fun avec parcours délirants et colorés.", lien:"https://apps.apple.com/app/stumble-guys/id1485334320"},
+  {nom:"Roblox Adopt Me", img:"https://link-to-adoptme-image", categorie:"Mode", description:"Adopte et élève des animaux virtuels.", lien:"https://www.roblox.com/games/920587237/Adopt-Me"},
+  {nom:"Angry Birds Classic", img:"https://link-to-angrybirdsclassic-image", categorie:"Reflexion", description:"Puzzle fun avec oiseaux et cochons.", lien:"https://apps.apple.com/app/angry-birds/id343200656"},
+  {nom:"Pocket Build", img:"https://link-to-pocketbuild-image", categorie:"Simulation", description:"Construis ton propre monde en 3D.", lien:"https://apps.apple.com/app/pocket-build/id1234906196"},
+  {nom:"Ball Blast", img:"https://link-to-ballblast-image", categorie:"Reflexion", description:"Tire sur les balles et progresse dans le score.", lien:"https://apps.apple.com/app/ball-blast/id1456789876"},
+  {nom:"Golf Battle", img:"https://link-to-golfbattle-image", categorie:"Sport", description:"Mini-golf multijoueur fun et rapide.", lien:"https://apps.apple.com/app/golf-battle/id1236547890"},
+  {nom:"Toca Life: World", img:"https://link-to-toca-image", categorie:"Mode", description:"Jeu créatif et simulation de vie.", lien:"https://apps.apple.com/app/toca-life-world/id1334572357"},
+  {nom:"Real Racing 3", img:"https://link-to-realracing3-image", categorie:"Course", description:"Simulation de course ultra réaliste.", lien:"https://apps.apple.com/app/real-racing-3/id556164551"},
+  {nom:"My Cafe: Recipes & Stories", img:"https://link-to-mycafe-image", categorie:"Gourmand", description:"Gère ton café et interagis avec les clients.", lien:"https://apps.apple.com/app/my-cafe-recipes-stories/id1030569275"},
+  {nom:"Terraria", img:"https://link-to-terraria-image", categorie:"Aventure", description:"Exploration, survie et craft dans un monde 2D.", lien:"https://apps.apple.com/app/terraria/id640364616"},
+  {nom:"LEGO Legacy", img:"https://link-to-legolegacy-image", categorie:"Aventure", description:"Explore le monde LEGO et combats des ennemis.", lien:"https://apps.apple.com/app/lego-legacy/id1234567890"},
+  {nom:"Mario Kart Tour", img:"https://link-to-mariokart-image", categorie:"Course", description:"Courses fun avec personnages Mario.", lien:"https://apps.apple.com/app/mario-kart-tour/id1293634699"},
+  {nom:"Plants vs Zombies 2", img:"https://link-to-pvz2-image", categorie:"Strategie", description:"Défends ton jardin avec des plantes.", lien:"https://apps.apple.com/app/plants-vs-zombies-2/id597986893"},
+  {nom:"Clash of Clans", img:"https://link-to-clashofclans-image", categorie:"Strategie", description:"Construis ton village et combats des clans.", lien:"https://apps.apple.com/app/clash-of-clans/id529479190"},
+  {nom:"Angry Birds Friends", img:"https://link-to-angryfriends-image", categorie:"Reflexion", description:"Puzzle et compétitions entre amis.", lien:"https://apps.apple.com/app/angry-birds-friends/id592286888"},
+  {nom:"Township", img:"https://link-to-township-image", categorie:"Simulation", description:"Ville et ferme à gérer simultanément.", lien:"https://apps.apple.com/app/township/id704404529"},
+  {nom:"Jetpack Joyride 2", img:"https://link-to-jetpack2-image", categorie:"Casual", description:"Cours avec ton jetpack et esquive les pièges.", lien:"https://apps.apple.com/app/jetpack-joyride-2/id1234567890"},
+  {nom:"Gardenscapes", img:"https://link-to-gardenscapes-image", categorie:"Gourmand", description:"Restaure un jardin magnifique en résolvant des puzzles.", lien:"https://apps.apple.com/app/gardenscapes/id1105855019"},
+  {nom:"Minecraft Earth", img:"https://link-to-minecraftearth-image", categorie:"Aventure", description:"Minecraft en réalité augmentée.", lien:"https://apps.apple.com/app/minecraft-earth/id1498556526"},
+  {nom:"Brawl Stars", img:"https://link-to-brawlstars-image", categorie:"Multiplayer", description:"Combat multijoueur en arène.", lien:"https://apps.apple.com/app/brawl-stars/id1229016807"},
+  {nom:"Fruit Ninja", img:"https://link-to-fruitninja-image", categorie:"Casual", description:"Tranche les fruits et bats ton record.", lien:"https://apps.apple.com/app/fruit-ninja/id362949845"},
+  {nom:"Geometry Dash", img:"https://link-to-geometrydash-image", categorie:"Reflexion", description:"Jeu de plateforme et réflexes rapides.", lien:"https://apps.apple.com/app/geometry-dash/id625694580"},
+  {nom:"Among Us VR", img:"https://link-to-amongusvr-image", categorie:"Multiplayer", description:"Version VR pour une expérience immersive.", lien:"https://www.oculus.com/experiences/quest/3552102047778880/"},
+  {nom:"SimCity BuildIt", img:"https://link-to-simcity-image", categorie:"Simulation", description:"Construis et gère ta ville.", lien:"https://apps.apple.com/app/simcity-buildit/id496154151"},
+  {nom:"The Sims Mobile", img:"https://link-to-simsmobile-image", categorie:"Simulation", description:"Crée et personnalise tes Sims.", lien:"https://apps.apple.com/app/the-sims-mobile/id1228141243"},
+  {nom:"The Sims 3", img:"https://link-to-sims3-image", categorie:"Simulation", description:"Version complète pour mobile du classique Sims 3.", lien:"https://apps.apple.com/app/the-sims-3/id1013131230"},
+  {nom:"Pokemon GO", img:"https://link-to-pokemongo-image", categorie:"Aventure", description:"Attrape des Pokémon dans le monde réel.", lien:"https://apps.apple.com/app/pokemon-go/id1094591345"},
+  {nom:"Mario Kart Tour", img:"https://link-to-mariokart-image", categorie:"Course", description:"Courses fun avec personnages Mario.", lien:"https://apps.apple.com/app/mario-kart-tour/id1293634699"},
+  {nom:"Clash of Clans", img:"https://link-to-clashclans-image", categorie:"Strategie", description:"Construis ton village et combats des clans.", lien:"https://apps.apple.com/app/clash-of-clans/id529479190"},
+  {nom:"Clash Royale", img:"https://link-to-clashroyale-image", categorie:"Strategie", description:"Duels stratégiques en temps réel.", lien:"https://apps.apple.com/app/clash-royale/id1053012308"},
+  {nom:"Pokemon UNITE", img:"https://link-to-pokemonunite-image", categorie:"Multiplayer", description:"MOBA Pokémon multijoueur.", lien:"https://apps.apple.com/app/pokemon-unite/id1551102194"},
+  {nom:"Among Us", img:"https://link-to-amongus-image", categorie:"Multiplayer", description:"Déduction sociale entre amis.", lien:"https://apps.apple.com/app/among-us/id1351168404"},
+  {nom:"Roblox", img:"https://link-to-roblox-image", categorie:"Mode", description:"Crée et explore des mondes fun.", lien:"https://apps.apple.com/app/roblox/id431946152"},
+  {nom:"Subway Surfers", img:"https://link-to-subwaysurfers-image", categorie:"Casual", description:"Course infinie fun et rapide.", lien:"https://apps.apple.com/app/subway-surfers/id512939461"},
+  {nom:"Fruit Ninja", img:"https://link-to-fruitninja-image", categorie:"Reflexion", description:"Tranche les fruits et bats ton record.", lien:"https://apps.apple.com/app/fruit-ninja/id362949845"},
+  {nom:"Geometry Dash", img:"https://link-to-geometrydash-image", categorie:"Reflexion", description:"Jeu de plateforme et réflexes rapides.", lien:"https://apps.apple.com/app/geometry-dash/id625694580"},
+  {nom:"Jetpack Joyride", img:"https://link-to-jetpack-image", categorie:"Casual", description:"Cours avec ton jetpack et esquive les pièges.", lien:"https://apps.apple.com/app/jetpack-joyride/id457446957"},
+  {nom:"Gardenscapes", img:"https://link-to-gardenscapes-image", categorie:"Gourmand", description:"Restaure un jardin magnifique en résolvant des puzzles.", lien:"https://apps.apple.com/app/gardenscapes/id1105855019"},
+  {nom:"Cooking Fever", img:"https://link-to-cookingfever-image", categorie:"Gourmand", description:"Gère ton restaurant et cuisine rapidement.", lien:"https://apps.apple.com/app/cooking-fever/id891060570"},
+  {nom:"Toca Life: World", img:"https://link-to-tocalife-image", categorie:"Mode", description:"Jeu créatif et simulation de vie.", lien:"https://apps.apple.com/app/toca-life-world/id1334572357"},
+  {nom:"Mini Metro", img:"https://link-to-minimetro-image", categorie:"Reflexion", description:"Crée un réseau de métro efficace.", lien:"https://apps.apple.com/app/mini-metro/id858410464"},
+  {nom:"PK XD", img:"https://link-to-pkxd-image", categorie:"Mode", description:"Avatar, vêtements et monde fun.", lien:"https://apps.apple.com/app/pk-xd/id1457316721"},
+  {nom:"Alto’s Adventure", img:"https://link-to-altosadventure-image", categorie:"Aventure", description:"Glisse paisible dans de beaux paysages.", lien:"https://apps.apple.com/app/altos-adventure/id950812012"},
+  {nom:"Sky: Children of the Light", img:"https://link-to-sky-image", categorie:"Aventure", description:"Exploration poétique en coopération.", lien:"https://apps.apple.com/app/sky-children-of-the-light/id1462116895"},
+  {nom:"Traffic Rider", img:"https://link-to-trafficrider-image", categorie:"Course", description:"Moto immersive à la première personne.", lien:"https://apps.apple.com/app/traffic-rider/id951021200"},
+  {nom:"Hill Climb Racing", img:"https://link-to-hillclimb-image", categorie:"Course", description:"Course fun avec véhicules délirants.", lien:"https://apps.apple.com/app/hill-climb-racing/id564540143"},
+  {nom:"Beach Buggy Racing", img:"https://link-to-beachbuggy-image", categorie:"Course", description:"Karting arcade fun et coloré.", lien:"https://apps.apple.com/app/beach-buggy-racing/id631196586"},
+  {nom:"Lego Legacy", img:"https://link-to-lego-image", categorie:"Aventure", description:"Explore le monde Lego et combats des ennemis.", lien:"https://apps.apple.com/app/lego-legacy/id1234567890"}
+
 ];
-
-// Fonction pour créer un mini-cadre
-function createMiniGameCard(game) {
+// Générer les mini-cadres pour tous les jeux
+const categoryGamesContainer = document.getElementById("categoryGames");
+games.forEach(game => {
   const div = document.createElement("div");
   div.className = "category-game";
-  div.innerHTML = `
-    <img src="${game.img}" alt="${game.nom}">
-    <div class="game-info-mini">
-      <h4>${game.nom}</h4>
-      <p>${game.description}</p>
-      <a class="btn-telecharger" href="${game.lien}" target="_blank">📥 Télécharger</a>
+   div.innerHTML = `
+  <img src="${game.img}" alt="${game.nom}">
+  <div class="game-info-mini">
+    <h4>${game.nom}</h4>
+    <p>${game.description}</p>
+    <div class="btn-telecharger" onclick="toggleDownload(this)">
+      📥 Télécharger </div>
+    <div class="download-options">
+      ${game.playstore ? `<a href="${game.playstore}" target="_blank">📥 Play Store</a>` : ""}
+      ${game.appstore ? `<a href="${game.appstore}" target="_blank">🍎 App Store</a>` : ""}
+      ${game.apk ? `<a href="${game.apk}" target="_blank">⬇️ APK</a>` : ""}
     </div>
-  `;
-  return div;
-}
+  </div>
+`;
 
-// Générer mini-cadres dans Jeux par Catégorie
-const categoryGamesContainer = document.getElementById("categoryGames");
-games.forEach(game => categoryGamesContainer.appendChild(createMiniGameCard(game)));
+  categoryGamesContainer.appendChild(div);
+});
 
-// Fonction pour filtrer par catégorie
+// Filtrer par catégorie
 function filterCategory(categorie) {
   const container = document.getElementById("filteredCategory");
   container.innerHTML = "";
-  games.filter(game => game.categorie === categorie)
-       .forEach(game => container.appendChild(createMiniGameCard(game)));
-  // Scroll vers le bas pour voir les jeux filtrés
-  container.scrollIntoView({behavior: "smooth"});
+  games.filter(game => game.categorie === categorie).forEach(game => {
+    const div = document.createElement("div");
+    div.className = "category-game";
+   div.innerHTML = `
+  <img src="${game.img}" alt="${game.nom}">
+  <div class="game-info-mini">
+    <h4>${game.nom}</h4>
+    <p>${game.description}</p>
+    <div class="btn-telecharger" onclick="toggleDownload(this)">
+      📥 Télécharger </div>
+    <div class="download-options">
+      ${game.playstore ? `<a href="${game.playstore}" target="_blank">📥 Play Store</a>` : ""}
+      ${game.appstore ? `<a href="${game.appstore}" target="_blank">🍎 App Store</a>` : ""}
+      ${game.apk ? `<a href="${game.apk}" target="_blank">⬇️ APK</a>` : ""}
+    </div>
+  </div>
+`;
+    container.appendChild(div);
+  });
+  container.scrollIntoView({ behavior: 'smooth' });
 }
+
+const searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("input", function() {
+  const query = this.value.toLowerCase();
+  const container = document.getElementById("categoryGames");
+  container.innerHTML = "";
+
+  games.filter(game => game.nom.toLowerCase().includes(query)).forEach(game => {
+    const div = document.createElement("div");
+    div.className = "category-game";
+    div.innerHTML = `
+      <img src="${game.img}" alt="${game.nom}">
+      <div class="game-info">
+        <h4>${game.nom}</h4>
+        <p>${game.description}</p>
+        <div class="btn-telecharger" onclick="toggleDownload(this)">
+      📥 Télécharger </div>
+    <div class="download-options">
+      ${game.playstore ? `<a href="${game.playstore}" target="_blank">📥 Play Store</a>` : ""}
+      ${game.appstore ? `<a href="${game.appstore}" target="_blank">🍎 App Store</a>` : ""}
+      ${game.apk ? `<a href="${game.apk}" target="_blank">⬇️ APK</a>` : ""}
+    </div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+});
+function toggleDownload(btn){
+  const box = btn.parentElement;
+  const menu = box.querySelector('.download-options');
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+// Fermer si on clique ailleurs
+document.addEventListener("click", function(e){
+  document.querySelectorAll('.download-options').forEach(menu=>{
+    if(!menu.parentElement.contains(e.target)){
+      menu.style.display="none";
+    }
+  });
+});
+
 </script>
+
+<footer>
+    <p>&copy; 2026 Mlg BN GameZone by Mlg BN CreatorStudio - Tous droits réservés</p>
+  </footer>
 
 </body>
 </html>
