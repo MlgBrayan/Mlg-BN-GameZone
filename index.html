@@ -6,49 +6,154 @@
   <title> Mlg BN GameZone </title>
   <style>
     body {
-      font-family: Arial;
-      background-color: black;
-      color: #9900ff;
-      margin: 0;
-    }
-    h1 { text-align: center; color: white;
-      background: linear-gradient(90deg, #00f0ff,#9900ff);
-      text-shadow: 0 0 10px #00f;
-      padding: 20px;
-      margin: auto;
-      font-size: 35px;
-    }
-    h2 { color: #9900ff; text-shadow: 0 0 10px #9900ff; margin: 10px; text-align: left; }
-    h3 { color: #9900ff; text-align: left; margin: 10px; text-shadow: 0 0 10px #9900ff; }
-    p { text-align: center; color: white; margin: 10px }
-    a { color: #00f0ff; text-decoration: none; }
-    .game-cadre { display: flex; overflow-x: auto; gap: 15px; padding: 15px; }
-    .game { position: relative; border-radius: 15px; background: #1a0a3a;
-      transition: transform 0.3s, box-shadow 0.3s;
-      height: 120px; min-width: 220px; overflow: hidden; cursor: pointer;
-    }
-    .game:hover { transform: scale(1.05); box-shadow: 0 0 20px #0099ff; }
-    .game-cadre img { width: 100%; height: 100%; object-fit: cover; }
-    .game-titre { color: #00f0ff; font-weight: bold;
-      text-shadow: 0 0 10px #00f0ff;
-      background: #0a0a1a;
-      position: absolute; width: 100%; bottom: 0;
-      padding: 5px; text-align: center;
-    }
-    .jeux-cadre { color: #00f0ff; }
-    .jeux { display: flex; align-items: center; font-size: 15px;
-      margin: 5px; font-weight: bold;
+  font-family: Arial, sans-serif;
+  background-color: black; 
+  color: #9900ff;
+  margin: 0;
+}
+
+/* TITRES */
+h1, h2, h3 {
+  text-align: left;
+  color: white;
+  margin: 10px 0;
+}
+
+h1 {
+  font-size: 40px;
+  background: linear-gradient(90deg,#0055ff,#9900ff);       
+  text-shadow: 0 0 10px #9900ff;
+  padding: 20px;
+}
+
+/* CADRE JEUX POPULAIRE / NOUVEAUX */
+.game-cadre {
+  display: grid;
+  grid-auto-flow: column;       /* scroll horizontal */
+  grid-template-rows: repeat(2, 1fr); /* ✅ 2 lignes */
+  gap: 15px;
+  padding: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.game {
+  position: relative;
+  border-radius: 15px;
+  background: #1a0a3a;
+  transition: transform 0.3s, box-shadow 0.3s;
+  min-width: 320px;
+  height: 150px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.game:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #0099ff;
+}
+
+.game img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* INFO JEU grands cadres */
+.game-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4));
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.game-info h4{
+  font-size: 11px;
+  margin: 0;
+  color: #00f0ff;
+}
+
+.game-info p{
+  font-size: 9px;
+  margin: 2px 0;
+  color: #ddd;
+}
+
+/* BOUTON TELECHARGER */
+.btn-telecharger {
+  display: block;
+  text-align: center;
+  background: linear-gradient(90deg,#0055ff,#9900ff);
+  color: white;
+  padding: 6px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.btn-telecharger:active {
+  transform: scale(0.95);
+}
+/* cacher scrollbar - Chrome, Edge, Safari */
+.game-cadre::-webkit-scrollbar {
+  display: none;
+}
+
+/* cacher scrollbar - Firefox */
+.game-cadre {
+  scrollbar-width: none;
+}
+/* Scroll horizontal actif mais barre invisible */
+.game-cadre,
+.bouton-cadre {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE / Edge */
+}
+
+.game-cadre::-webkit-scrollbar,
+.bouton-cadre::-webkit-scrollbar {
+  display: none;              /* Chrome / Safari */
+}
+/* Grands cadres (populaires / nouveaux) */
+.game-cadre{
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.game-cadre::-webkit-scrollbar {
+  display: none;          /* cacher scrollbar */
+}
+.game {
+  position: relative;
+  border-radius: 15px;
+  background: #1a0a3a;
+  transition: transform 0.3s, box-shadow 0.3s;
+  min-width: 350px;      /* largeur fixe pour le scroll horizontal */
+  height: 160px;
+  overflow: hidden;
+  cursor: pointer;
+}
+    .jeux-cadre { color: #00f0ff; text-decoration: none;}
+    .jeux { display: flex; align-items: center; font-weight: bold;
+      margin: 5px; text-decoration: none; color: #00f0ff; font-size: 13px;
     }
     .jeux:hover { transform: scale(1.05); color: #9900ff; }
     span { border-radius: 50%; background: #00f0ff; color: black;
       padding: 4px 7px; margin: 0px 10px; font-size: 10px; font-weight: bold;
     }
-    .bouton-cadre { display: flex; font-weight: bold; gap: 20px;
-      margin: 15px; justify-content: center;
+    .bouton-cadre { display: flex; gap: 20px;
+      margin: 15px; justify-content: center; color: white; padding: 6px; border-radius: 8px; font-size: 12px; font-weight: bold; text-decoration: none;
     }
     .bouton { border-radius: 10px; background: #9900ff; color: white;
-      text-align: center; font-size: 15px; padding: 10px 10px;
-      cursor: pointer;
+      text-align: center; font-size: 12px; padding: 10px;
+      cursor: pointer; text-decoration: none;
     }
     .bouton:hover { transform: scale(1.05); color: #00f; box-shadow: 0 0 20px #00f; }
     .mini-jeux-cadre { color: white; display: flex;
@@ -78,44 +183,183 @@
 .dropdown-content-jeux a{
   display: block;
   padding: 10px;
-  color: #00f0ff;
+  color: #ccc;
   text-decoration: none;
 }
 .dropdown-content-jeux a:hover{
   background: #9900ff;
   color: black;
 }
+.download-box{
+  position: relative;
+  display: inline-block;
+  min-width: 335px;
+  font-size: 12px;
+}
+.download-options{
+  display:none;
+  position:absolute;
+  bottom:110%;
+  left:0;
+  background:#000;
+  border-radius:10px;
+  box-shadow:0 0 20px #9900ff;
+  overflow:hidden;
+  min-width:180px;
+  z-index:20;
+  font-size: 12px;
+}
+
+.download-options a{
+   padding:6px;
+  text-decoration:none;
+  font-weight: bold;
+  display: block;
+  font-size: 11px;        /* 🔽 taille réduite */
+  padding: 4px 5px;       /* 🔽 moins de hauteur */
+  margin-bottom: 2px;
+  border-radius: 6px;
+  text-align: center;
+  background: #2b2b2b;
+  color: #fff;
+}
+
+.download-options a:hover{
+  background:#9900ff;
+  color:black;
+}
+ footer {
+      text-align: center;
+      background-color: #111;
+      padding: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+
   </style>
 </head>
 <body>
   <h1>Mlg BN GameZone </h1>
 
-  <h2>. 💯Top des jeux</h2>
-  <div class="game-cadre">
-    <a href="https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile&hl=en"target="_blank" class="game">
-      <img src="_b44156ce-cf0e-449f-96a9-65ba64eb16d8.jpg" alt="FC mobile">
-      <div class="game-titre"> FC mobile</div>
-    </a>
-    <a href="https://mcpedl.org/downloading/" target="_blank" class="game">
-      <img src="_24d23639-a4b2-44ce-9737-5eba834d0a69.jpg" alt="Minecraft">
-      <div class="game-titre">Minecraft</div>
-    </a>
-   <a href="https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftA8HM&hl=fr"target="_blank" class="game">
-      <img src="_d4b88943-7b5f-48e9-b2c1-b18a57610cc8.jpg" alt="Asphalt 8">
-      <div class="game-titre">Asphalt 8</div>
-   </a>
-    <a href="https://play.google.com/store/apps/details?id=com.nordcurrent.canteenhd&hl=fr" target="_blank" class="game">
-      <img src="_5ac05f8d-b321-4a03-b196-25dae0029688.jpg" alt="Cooking Fever">
-      <div class="game-titre">Cooking Fever </div>
-    </a>
-    <a href="https://play.google.com/store/apps/details?id=com.innersloth.spacemafia" target="_blank" class="game">
-      <img src="_fb954ae5-5e4a-409e-ae2e-02ba410a517b.jpg" alt="Among Us">
-      <div class="game-titre"> Among Us</div>
-    </a>
-    <!-- Tu peux ajouter d'autres jeux ici -->
+  <h2>. Top des jeux</h2>
+  <div class="game-cadre" id="popularGames">
+
+  <!-- FC Mobile -->
+  <div class="game">
+    <img src="c:\Users\Admin\Downloads\_956f852a-9810-43d5-83ec-4999c196a9f0.jfif" alt="FC Mobile">
+    <div class="game-info">
+      <h4>FC Mobile</h4>
+      <p>Football réaliste avec équipes officielles.</p>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile" target="_blank">📥 Play Store</a>
+          <a href="https://apkpure.com/fr/fc-mobile/com.ea.gp.fifamobile" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h3>. 🔥Jeux populaires</h3>
+  <!-- Minecraft -->
+  <div class="game">
+    <img src="_24d23639-a4b2-44ce-9737-5eba834d0a69.jpg" alt="Minecraft">
+    <div class="game-info">
+      <h4>Minecraft</h4>
+      <p>Jeu créatif et survie multijoueur.</p>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.mojang.minecraftpe" target="_blank">📥 Play Store</a>
+          <a href="https://apps.apple.com/app/id479516143" target="_blank">🍎 App Store</a>
+          <a href="https://mcpedl.org/downloading/minecraft-pe-1-21/" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Asphalt Nitro -->
+  <div class="game">
+    <img src="c:\Users\Admin\Downloads\_44a5eee9-69fe-43c7-bfed-7dec95d946ad.jfif" alt="Asphalt Nitro">
+    <div class="game-info">
+      <h4>Asphalt Nitro</h4>
+      <p>Course intense avec voitures de luxe.</p>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftA8HM" target="_blank">📥 Play Store</a>
+          <a href="https://asphalt-nitro.fr.malavida.com/android/download" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Talking Tom Hero Dash -->
+  <div class="game">
+    <img src="c:\Users\Admin\Downloads\_cd2f5c71-8b43-435f-a538-0a1918a96d46.jfif" alt="Talking Tom Hero Dash">
+    <div class="game-info">
+      <h4>Talking Tom Hero Dash</h4>
+      <p>Parcours les niveaux avec Tom et ses amis.</p>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.outfit7.herodash" target="_blank">📥 Play Store</a>
+          <a href="https://apps.apple.com/us/app/talking-tom-hero-dash/id1434807653" target="_blank">🍎 App Store</a>
+          <a href="" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Among Us -->
+  <div class="game">
+    <img src="_fb954ae5-5e4a-409e-ae2e-02ba410a517b.jpg" alt="Among Us">
+    <div class="game-info">
+      <h4>Among Us</h4>
+      <p>Trouve l'imposteur, ne fais confiance à personne.</p>
+      <div class="download-box">
+        <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+        <div class="download-options">
+          <a href="https://play.google.com/store/apps/details?id=com.innersloth.spacemafia" target="_blank">📥 Play Store</a>
+          <a href="https://apps.apple.com/app/id1351168404" target="_blank">🍎 App Store</a>
+          <a href="https://apkpure.com/fr/among-us/com.innersloth.spacemafia" target="_blank">⬇️ APK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game">
+  <img src="c:\Users\Admin\Downloads\_579d713a-3d55-4224-b59f-230d405fe288.jfif" alt="Genshin Impact">
+  <div class="game-info">
+    <h4>Genshin Impact</h4>
+    <p>RPG monde ouvert spectaculaire action, aventure et exploration.</p>
+
+    <div class="download-box">
+      <div class="btn-telecharger" onclick="toggleDownload(this)">📥 Télécharger</div>
+
+      <div class="download-options">
+        <!-- Play Store -->
+        <a href="https://play.google.com/store/apps/details?id=com.miHoYo.GenshinImpact"
+           target="_blank">📥 Play Store</a>
+
+        <!-- App Store -->
+        <a href="https://apps.apple.com/app/id1517783697"
+           target="_blank">🍎 App Store</a>
+
+        <!-- APK -->
+        <a href="https://apkpure.com/genshin-impact/com.miHoYo.GenshinImpact"
+           target="_blank">⬇️ APK</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+  <h3>. Jeux populaires</h3>
   <div class="jeux-cadre">
     <a href="https://play.google.com/store/apps/details?id=com.firsttouchgames.dls7&hl=en" target="_blank" class="jeux"><span>1</span> Dream League Soccer 2026</a>
     <a href="https://play.google.com/store/apps/details?id=com.supercell.clashofclans&hl=en" target="_blank" class="jeux"><span>2</span> Clash of Clans</a>
@@ -182,7 +426,7 @@ h1{text-align:center;margin:10px 0;}
 #memoryGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:100%;max-width:920px;margin:10px auto;}
 .mem-card{background:#111;height:100px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:40px;cursor:pointer;user-select:none;transition:0.2s;}
 @media (max-width:920px){#memoryGrid{grid-template-columns:repeat(4,1fr)}.tt-cell{height:84px;font-size:40px;}}
-.careaux {border: 1px solid #9900ff; border-radius: 15px; background: #0a0a1a; padding: 5px 10px}
+.careaux {border: 1px solid #9900ff; border-radius: 15px; background: #0a0a1a; padding: 5px 10px; font-size: 13px;}
 #iframeOverlay {
   display:none;
   position:fixed;
@@ -410,50 +654,78 @@ function fitCanvas(canvas,w,h){canvas.width=window.innerWidth*w;canvas.height=wi
 </script>
 
 <div class="careaux">
-  <h2 style="text-align: center; color: #0099ff; text-shadow: 0 0 10px #0099ff; padding:10px;">
+  <h2 style="text-align: center; color: #0099ff; text-shadow: 0 0 10px #0099ff; padding:10px; min-width: 300px">
     Notre Mission
   </h2>
  <p>Proposer les meilleurs jeux et application sur toutes les platformes. Ce site un univers de rêve pour chaque Gamers car ici tu peux jouer et aussi téléchager différents jeux et applications. Ici tout est fait pour le confort du gaming </p>
   <div class="ligne"></div>
   <footer>Créé par un passionné de jeux vidéos : <br> <strong style="color:#9900ff;"> {Mlg} </strong>Malonga , <strong style="color: #9900ff;"> {BN}</strong> Brayan </footer>
 </div>
-  <h2>. Nouveaux jeux</h2>
+  <h2>. Nouveaux jeux online</h2>
 
 <!-- VIGNETTES DES JEUX -->
-<div class="game-cadre">
- <div class="game" onclick="openIframeGame(6)">
-    <img src="https://business.gamezop.com/img/gamezop/p7HOjYF4O/cover.jpg?w=300&q=50" alt="Rampage Racer">
-    <div class="game-titre">Rampage Racer : Jouer</div>
+<div class="game-cadre" id="popularGames">
+ <div class="game">
+    <img src="https://business.gamezop.com/img/gamezop/H1Wzaf1wqyQ/cover.jpg?w=300&q=50" alt="Hipster Tennis">
+    <div class="game-info">
+      <h4>Hipster Tennis</h4>
+      <p>Raquettes en main et sourire aux lèvres, Hipster Tennis est l'endroit idéal.</p>
+      <a class="btn-telecharger" onclick="openIframeGame(6)">🎮 Jouer</a>
+    </div>
   </div>
  
-<div class="game" onclick="openIframeGame(3)">
+<div class="game">
     <img src="https://business.gamezop.com/img/gamezop/Skz4pzkDqyX/cover.jpg?w=300&q=50" alt="Escape Run">
-    <div class="game-titre">Escape Run : Jouer</div>
+    <div class="game-info">
+      <h4>Escape Run</h4>
+      <p>Aidez le montagnard à échapper aux médias pendant qu'il court paisiblement dans le froid.</p>
+      <a class="btn-telecharger" onclick="openIframeGame(3)">🎮 Jouer</a>
+    </div>
 </div>
  
-  <div class="game" onclick="openIframeGame(1)">
-    <img src="https://business.gamezop.com/img/gamezop/SkhljT2fdgb/cover.jpg?w=300&q=50" alt="Ludo avec des amis">
-    <div class="game-titre">Ludo avec des amis : Jouer</div>
+  <div class="game">
+    <img src="https://business.gamezop.com/img/gamezop/SkhljT2fdgb/cover.jpg?w=300&q=50" alt="Ludo With Friends">
+     <div class="game-info">
+      <h4>Ludo With Friends</h4>
+      <p>Jouez avec vos amis ou avec des milliers d'autres joueurs en ligne.</p>
+      <a class="btn-telecharger" onclick="openIframeGame(1)">🎮 Jouer</a>
+    </div>
   </div>
 
- <div class="game" onclick="openIframeGame(7)">
+ <div class="game">
     <img src="https://business.gamezop.com/img/gamezop/BkdJhTX50B/cover.jpg?w=300&q=50" alt="Stars du bowling">
-    <div class="game-titre">Stars du bowling : Jouer</div>
+    <div class="game-info">
+      <h4>Stars du bowling</h4>
+      <p>Profitez du meilleur jeu de bowling en ligne et voyez combien de quilles vous réussirez à renverser.</p>
+      <a class="btn-telecharger" onclick="openIframeGame(7)">🎮 Jouer</a>
+    </div>
   </div>
 
-  <div class="game" onclick="openIframeGame(5)">
+  <div class="game">
     <img src="https://zv1y2i8p.play.gamezop.com/_next/image?url=https%3A%2F%2Fstatic.gamezop.com%2FhgempP8Sc%2Fbrick.png&w=384&q=75" alt="Pool Master">
-    <div class="game-titre">Pool Master : Jouer</div>
+    <div class="game-info">
+      <h4>Pool Master</h4>
+      <p>Préparez-vous à jouer au jeu de billard le plus palpitant de tous les temps.</p>
+      <a class="btn-telecharger" onclick="openIframeGame(5)">🎮 Jouer</a>
+    </div>
   </div>
  
-  <div class="game" onclick="openIframeGame(2)">
-    <img src="https://business.gamezop.com/img/gamezop/rkPlk2T7qAr/cover.jpg?w=300&q=50" alt="Solitaire Gold">
-    <div class="game-titre">Solitaire Gold : Jouer</div>
+  <div class="game">
+    <img src="https://business.gamezop.com/img/gamezop/UCS62KJ8c/cover.jpg?w=300&q=50" alt="Blocks Adventure Jungle Saga">
+    <div class="game-info">
+      <h4>Blocks Adventure Jungle Saga</h4>
+      <p>faites glisser et déposez des blocs dans un mouvement fluide et coloré</p>
+      <a class="btn-telecharger" onclick="openIframeGame(2)">🎮 Jouer</a>
+    </div>
   </div>
 
-  <div class="game" onclick="openIframeGame(4)">
-    <img src="https://zv1y2i8p.play.gamezop.com/_next/image?url=https%3A%2F%2Fstatic.gamezop.com%2FXuSI73Wi5%2Fbrick.png&w=384&q=75" alt="From Nerd to School Popular">
-    <div class="game-titre">From Nerd to School Popular : Jouer</div>
+  <div class="game">
+    <img src="https://business.gamezop.com/img/gamezop/yVywAGBQ6/cover.jpg?w=300&q=50" alt="Bubble Shooter Classique">
+     <div class="game-info">
+      <h4>Bubble Shooter Classique</h4>
+      <p>Associez les couleurs, faites-les éclater</p>
+      <a class="btn-telecharger" onclick="openIframeGame(4)">🎮 Jouer</a>
+    </div>
   </div>
 </div>
 <!-- POPUP IFRAME -->
@@ -467,7 +739,7 @@ function fitCanvas(canvas,w,h){canvas.width=window.innerWidth*w;canvas.height=wi
     <a href="jeux.html" class="bouton">Plus de jeux online</a>
  </div>
 
-  <h2>. 👍Recommandés</h2>
+  <h2>. Recommandés</h2>
   <div class="game-cadre">
     <a href="https://asphalt-nitro.fr.download.it/android"target="_blank" class="game">
       <img src="image3.jpg" alt="Asphalt nitro">
@@ -490,11 +762,11 @@ function fitCanvas(canvas,w,h){canvas.width=window.innerWidth*w;canvas.height=wi
     <script>
 const iframeLinks = {
   1: "https://zv1y2i8p.play.gamezop.com/g/SkhljT2fdgb",
-  2: "https://zv1y2i8p.play.gamezop.com/g/rkPlk2T7qAr",
+  2: "https://zv1y2i8p.play.gamezop.com/g/UCS62KJ8c",
   3: "https://zv1y2i8p.play.gamezop.com/g/Skz4pzkDqyX",
-  4: "https://zv1y2i8p.play.gamezop.com/g/XuSI73Wi5",
+  4: "https://zv1y2i8p.play.gamezop.com/g/yVywAGBQ6",
   5: "https://zv1y2i8p.play.gamezop.com/g/hgempP8Sc",
-  6: "https://zv1y2i8p.play.gamezop.com/g/p7HOjYF4O",
+  6: "https://zv1y2i8p.play.gamezop.com/g/H1Wzaf1wqyQ",
   7: "https://zv1y2i8p.play.gamezop.com/g/BkdJhTX50B"
 };
 
@@ -507,7 +779,26 @@ function closeIframeGame() {
   document.getElementById("iframeOverlay").style.display = "none";
   document.getElementById("iframeViewer").src = "";
 }
+
+function toggleDownload(btn){
+  const box = btn.parentElement;
+  const menu = box.querySelector('.download-options');
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+// Fermer si on clique ailleurs
+document.addEventListener("click", function(e){
+  document.querySelectorAll('.download-options').forEach(menu=>{
+    if(!menu.parentElement.contains(e.target)){
+      menu.style.display="none";
+    }
+  });
+});
 </script>
+
+<footer>
+    <p>&copy; 2026 Mlg BN GameZone by Mlg BN CreatorStudio - Tous droits réservés</p>
+  </footer>
 
 </body>
   </html>
